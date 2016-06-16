@@ -1,6 +1,6 @@
 {
   "name": "aes-decrypter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "decrypt aes-128 content using a key",
   "main": "es5/index.js",
   "contributors": [
@@ -52,7 +52,12 @@
   "license": "Apache-2.0",
   "browserify": {
     "transform": [
-      ["browserify-shim", {"global": true}]
+      [
+        "browserify-shim",
+        {
+          "global": true
+        }
+      ]
     ]
   },
   "browserify-shim": {

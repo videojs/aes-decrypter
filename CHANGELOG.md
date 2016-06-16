@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* specify browserify transform globally
+_(none)_
 
 --------------------
+
+## 1.0.2 (2016-06-16)
+* specify browserify transform globally
 
 ## 1.0.1 (2016-06-16)
 * fixing the build pipeline
