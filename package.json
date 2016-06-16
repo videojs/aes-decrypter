@@ -50,6 +50,11 @@
   },
   "author": "Brightcove, Inc.",
   "license": "Apache-2.0",
+  "browserify": {
+    "transform": [
+      ["browserify-shim", {"global": true}]
+    ]
+  },
   "browserify-shim": {
     "qunit": "global:QUnit",
     "sinon": "global:sinon"
