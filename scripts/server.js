@@ -40,7 +40,7 @@ const bundlers = {
     entries: srces.tests,
     transform: [
       'babelify',
-      ['browserify-shim', {global: true}]
+      'browserify-shim'
     ]
   })
 };
