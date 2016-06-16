@@ -1,6 +1,6 @@
 {
   "name": "aes-decrypter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "decrypt aes-128 content using a key",
   "main": "es5/index.js",
   "contributors": [
