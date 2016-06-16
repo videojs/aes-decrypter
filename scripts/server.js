@@ -39,7 +39,8 @@ const bundlers = {
     debug: true,
     entries: srces.tests,
     transform: [
-      'babelify'
+      'babelify',
+      ['browserify-shim', {global: true}]
     ]
   })
 };
