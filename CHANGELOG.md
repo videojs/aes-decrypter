@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* dont do browserify-shim globally since we only use it in tests (#1)
 
 --------------------
 
