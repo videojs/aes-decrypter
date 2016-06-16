@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* dont do browserify-shim globally since we only use it in tests (#1)
+_(none)_
 
 --------------------
+
+## 1.0.3 (2016-06-16)
+* dont do browserify-shim globally since we only use it in tests (#1)
 
 ## 1.0.2 (2016-06-16)
 * specify browserify transform globally
