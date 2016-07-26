@@ -75,6 +75,7 @@
     "test/"
   ],
   "dependencies": {
+    "global": "^4.3.0",
     "pkcs7": "^0.2.3"
   },
   "devDependencies": {
@@ -88,7 +89,6 @@
     "chg": "^0.3.2",
     "doctoc": "^0.15.0",
     "glob": "^6.0.3",
-    "global": "^4.3.0",
     "jsdoc": "^3.4.0",
     "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.2.2",
@@ -103,6 +103,6 @@
     "rimraf": "^2.5.1",
     "sinon": "~1.14.0",
     "uglify-js": "^2.6.1",
-    "videojs-standard": "^4.0.0"
+    "videojs-standard": "4.0.2"
   }
 }
