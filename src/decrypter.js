@@ -5,6 +5,7 @@
  * PKCS#7 padding.
  */
 
+import window from 'global/window';
 import AES from './aes';
 import AsyncStream from './async-stream';
 import {unpad} from 'pkcs7';
@@ -188,7 +189,7 @@ const getWebCrypto = function() {
     return null;
   }
 
-  let _crypto = window ? window.crypto : crypto;
+  let _crypto = window.crypto;
 
   if (!_crypto) {
     return null;
