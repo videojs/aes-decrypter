@@ -1,6 +1,6 @@
 {
   "name": "aes-decrypter",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "decrypt aes-128 content using a key",
   "main": "es5/index.js",
   "contributors": [
@@ -103,6 +103,6 @@
     "rimraf": "^2.5.1",
     "sinon": "~1.14.0",
     "uglify-js": "^2.6.1",
-    "videojs-standard": "4.0.2"
+    "videojs-standard": "4.0.3"
   }
 }
