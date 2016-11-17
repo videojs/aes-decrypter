@@ -7,7 +7,7 @@ _(none)_
 --------------------
 
 ## 1.1.1 (2016-11-17)
-_(none)_
+* version to revert 1.1.0
 
 ## 1.0.3 (2016-06-16)
 * dont do browserify-shim globally since we only use it in tests (#1)
