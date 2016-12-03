@@ -6,8 +6,10 @@
  */
 
 import AES from './aes';
-import AsyncStream from './async-stream';
 import {unpad} from 'pkcs7';
+
+var crypto = window.crypto || window.msCrypto;
+var subtle = crypto.subtle || msCrypto.subtle;
 
 /**
  * Convert network-order (big-endian) bytes into their little-endian
@@ -38,9 +40,7 @@ export const decrypt = function(encrypted, key, initVector) {
   let encrypted32 = new Int32Array(encrypted.buffer,
                                    encrypted.byteOffset,
                                    encrypted.byteLength >> 2);
-
   let decipher = new AES(Array.prototype.slice.call(key));
-
   // byte and word-level access for the decrypted output
   let decrypted = new Uint8Array(encrypted.byteLength);
   let decrypted32 = new Int32Array(decrypted.buffer);
@@ -114,54 +114,38 @@ export const decrypt = function(encrypted, key, initVector) {
  */
 export class Decrypter {
   constructor(encrypted, key, initVector, done) {
-    let step = Decrypter.STEP;
-    let encrypted32 = new Int32Array(encrypted.buffer);
-    let decrypted = new Uint8Array(encrypted.byteLength);
+/*  // Experimental mscrypto schmutz
+    let initVector2 = new Uint8Array(initVector.buffer);
+    let key2 = new Uint8Array(key.buffer);
+
     let i = 0;
+    let algo = { name: 'AES-CBC', length: 128, iv: initVector2 };
 
-    this.asyncStream_ = new AsyncStream();
+    let keyOp = subtle.importKey('raw', key2, algo, ['decrypt']);
+    keyOp.oncomplete = function(e) {
+      let keyObj = e.target.result;
+      let decrypt = subtle.decrypt(algo, keyObj);
 
-    // split up the encryption job and do the individual chunks asynchronously
-    this.asyncStream_.push(this.decryptChunk_(encrypted32.subarray(i, i + step),
-                                              key,
-                                              initVector,
-                                              decrypted));
-    for (i = step; i < encrypted32.length; i += step) {
-      initVector = new Uint32Array([ntoh(encrypted32[i - 4]),
-                                    ntoh(encrypted32[i - 3]),
-                                    ntoh(encrypted32[i - 2]),
-                                    ntoh(encrypted32[i - 1])]);
-      this.asyncStream_.push(this.decryptChunk_(encrypted32.subarray(i, i + step),
-                                                key,
-                                                initVector,
-                                                decrypted));
-    }
-    // invoke the done() callback when everything is finished
-    this.asyncStream_.push(function() {
-      // remove pkcs#7 padding from the decrypted bytes
-      done(null, unpad(decrypted));
-    });
-  }
+      console.log('key result', e);
 
-  /**
-   * a getter for step the maximum number of bytes to process at one time
-   *
-   * @return {Number} the value of step 32000
-   */
-  static get STEP() {
-    // 4 * 8000;
-    return 32000;
-  }
+      decrypt.oncomplete = function(e) {
+        console.log('decrypt result', e);
 
-  /**
-   * @private
-   */
-  decryptChunk_(encrypted, key, initVector, decrypted) {
-    return function() {
-      let bytes = decrypt(encrypted, key, initVector);
+        if (!e.target.result) {
+          console.log('no results from crypto');
+        }
 
-      decrypted.set(bytes, encrypted.byteOffset);
+        done(null, new Uint8Array(e.target.result));
+      };
+      decrypt.onerror = console.log.bind(console, 'decrypt error');
+      decrypt.onabort = console.log.bind(console, 'decrypt abort');
+      decrypt.process(encrypted);
+      decrypt.finish();
     };
+    keyOp.onerror = console.log.bind(console, 'key error');
+    keyOp.onabort = console.log.bind(console, 'key abort');
+*/
+    done(null, unpad(decrypt(encrypted, key, initVector)));
   }
 }
 

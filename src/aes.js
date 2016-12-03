@@ -195,7 +195,7 @@ export default class AES {
    * writing results
    * @return {Array} The plaintext.
    */
-  decrypt(encrypted0, encrypted1, encrypted2, encrypted3, out, offset) {
+  decrypt(encrypted0, encrypted1, encrypted2, encrypted3, out, outOffset) {
     let key = this._key[1];
     // state variables a,b,c,d are loaded with pre-whitened data
     let a = encrypted0 ^ key[0];
@@ -221,22 +221,22 @@ export default class AES {
 
     // Inner rounds. Cribbed from OpenSSL.
     for (i = 0; i < nInnerRounds; i++) {
-      a2 = table0[a >>> 24] ^
+      a2 = table0[a >> 24 & 255] ^
         table1[b >> 16 & 255] ^
         table2[c >> 8 & 255] ^
         table3[d & 255] ^
         key[kIndex];
-      b2 = table0[b >>> 24] ^
+      b2 = table0[b >> 24 & 255] ^
         table1[c >> 16 & 255] ^
         table2[d >> 8 & 255] ^
         table3[a & 255] ^
         key[kIndex + 1];
-      c2 = table0[c >>> 24] ^
+      c2 = table0[c >> 24 & 255] ^
         table1[d >> 16 & 255] ^
         table2[a >> 8 & 255] ^
         table3[b & 255] ^
         key[kIndex + 2];
-      d = table0[d >>> 24] ^
+      d = table0[d >> 24 & 255] ^
         table1[a >> 16 & 255] ^
         table2[b >> 8 & 255] ^
         table3[c & 255] ^
@@ -247,8 +247,8 @@ export default class AES {
 
     // Last round.
     for (i = 0; i < 4; i++) {
-      out[(3 & -i) + offset] =
-        sbox[a >>> 24] << 24 ^
+      out[(3 & -i) + outOffset] =
+        sbox[a >> 24 & 255] << 24 ^
         sbox[b >> 16 & 255] << 16 ^
         sbox[c >> 8 & 255] << 8 ^
         sbox[d & 255] ^
