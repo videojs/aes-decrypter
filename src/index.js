@@ -8,11 +8,6 @@
  * import {Decrypter, decrypt, AsyncStream} from 'aes-decrypter';
  * ```
  */
-import {decrypt, Decrypter} from './decrypter';
-import AsyncStream from './async-stream';
+import decrypter from './decrypter';
 
-export default {
-  decrypt,
-  Decrypter,
-  AsyncStream
-};
+export default decrypter;

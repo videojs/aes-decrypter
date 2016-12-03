@@ -75,8 +75,10 @@
     "test/"
   ],
   "dependencies": {
-    "global": "^4.3.0",
-    "pkcs7": "^0.2.3"
+    "global": "^4.3.1",
+    "pkcs7": "^0.2.3",
+    "promiz": "^1.0.5",
+    "webcrypto-shim": "^0.1.1"
   },
   "devDependencies": {
     "babel": "^5.8.35",
