@@ -46,4 +46,3 @@ export default class AsyncStream extends Stream {
     }
   }
 }
-
