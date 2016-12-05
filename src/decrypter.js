@@ -10,8 +10,12 @@ import AES from './aes';
 import {unpad} from 'pkcs7';
 import AsyncStream from './async-stream';
 import Promise from 'promiz';
-import window from 'global/window';
-import webcrypto from 'webcrypto-shim';
+
+// Need to make the Promise polyfill global from a node-style import
+// because the webcrypto library isn't really a node-style library
+window.Promise = window.Promise || Promise;
+
+let webcrypto = require('webcrypto-shim-jon');
 
 /**
  * Convert network-order (big-endian) bytes into their little-endian
@@ -123,7 +127,7 @@ const nativeDecrypter = function(encrypted, key, initVector) {
 // 4 * 8000
 const DECRYPTION_STEP = 32000;
 
-const jsDecrypter = function(encrypted, key, initVector, done) {
+const javascriptDecrypter = function(encrypted, key, initVector, done) {
   let view = new DataView(key.buffer);
   let littleEndianKey = new Uint32Array([
     view.getUint32(0),
@@ -172,11 +176,11 @@ const decryptChunk = function(encrypted, key, initVector, decrypted) {
 
 const decrypter = function(encrypted, key, initVector, done) {
   nativeDecrypter(encrypted, key, initVector).then(function(decrypted) {
-    return done(null, decrypted);
-  },
-  function (){
-    return jsDecrypter(encrypted, key, initVector, done);
-  });
+      return done(null, decrypted);
+    },
+    function(rejection) {
+      return javascriptDecrypter(encrypted, key, initVector, done);
+    });
 };
 
 export default decrypter;
