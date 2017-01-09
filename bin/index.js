@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-let Decrypter = require('../').Decrypter;
+let decrypt = require('../').decrypt;
 let commander = require('commander');
 let fs = require('fs');
 let path = require('path');
@@ -27,10 +27,42 @@ let parseIV = (opt) => {
   return iv;
 };
 
+let parseKey = (opt) => {
+  let keyPath = path.resolve(opt);
+
+  if (fs.existsSync(keyPath)) {
+    let keyContent = fs.readFileSync(keyPath);
+
+    return new Uint8Array(keyContent);
+  }
+
+  let keyContent = opt;
+  let ints = keyContent.match(/^0?x?(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})/i);
+
+  return new Uint8Array([
+    parseInt(ints[1], 16),
+    parseInt(ints[2], 16),
+    parseInt(ints[3], 16),
+    parseInt(ints[4], 16),
+    parseInt(ints[5], 16),
+    parseInt(ints[6], 16),
+    parseInt(ints[7], 16),
+    parseInt(ints[8], 16),
+    parseInt(ints[9], 16),
+    parseInt(ints[10], 16),
+    parseInt(ints[11], 16),
+    parseInt(ints[12], 16),
+    parseInt(ints[13], 16),
+    parseInt(ints[14], 16),
+    parseInt(ints[15], 16),
+    parseInt(ints[16], 16)
+  ]);
+};
+
 commander
   .usage('[options] <input file> [output file]')
-  .option('-k, --key <n>', 'The keyfile')
-  .option('-i, --iv <n>', 'The initialization vector (256bit hex-string) or a file containing an IV', parseIV)
+  .option('-k, --key <n>', 'The keyfile as a 128bit hex-string or a file with the key in raw binary', parseKey)
+  .option('-i, --iv <n>', 'The initialization vector as a 128bit hex-string or a file containing a hex-string', parseIV)
   .parse(process.argv);
 
 if (commander.args.length < 1 ||
@@ -40,20 +72,11 @@ if (commander.args.length < 1 ||
   process.exit(1);
 }
 
-let keyContent = fs.readFileSync(path.resolve(commander.key));
 let encryptedBytes = fs.readFileSync(path.resolve(commander.args[0]));
 
-let key = new Uint32Array([
-  keyContent.readUInt32BE(0),
-  keyContent.readUInt32BE(4),
-  keyContent.readUInt32BE(8),
-  keyContent.readUInt32BE(12)
-]);
-
-/* eslint-disable no-new */
-new Decrypter(
+decrypt(
   new Uint8Array(encryptedBytes),
-  key,
+  commander.key,
   commander.iv,
   function(err, decryptedBytes) {
     // err always null
