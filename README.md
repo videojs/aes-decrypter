@@ -67,8 +67,8 @@ $ aes-decrypter
   Options:
 
     -h, --help     output usage information
-    -k, --key <n>  The keyfile
-    -i, --iv <n>   The initialization vector (0x<256bit hex string>) or a file containing an IV
+    -k, --key <n>  The keyfile as a 128bit hex-string or the path to a file containing the key in raw binary
+    -i, --iv <n>   The initialization vector as a 128bit hex-string or the path to a file containing a hex-string
 ```
 
 Examples:

@@ -61,8 +61,8 @@ let parseKey = (opt) => {
 
 commander
   .usage('[options] <input file> [output file]')
-  .option('-k, --key <n>', 'The keyfile as a 128bit hex-string or a file with the key in raw binary', parseKey)
-  .option('-i, --iv <n>', 'The initialization vector as a 128bit hex-string or a file containing a hex-string', parseIV)
+  .option('-k, --key <n>', 'The keyfile as a 128bit hex-string or the path to a file containing the key in raw binary', parseKey)
+  .option('-i, --iv <n>', 'The initialization vector as a 128bit hex-string or the path to a file containing a hex-string', parseIV)
   .parse(process.argv);
 
 if (commander.args.length < 1 ||
