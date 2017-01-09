@@ -9,6 +9,7 @@ let path = require('path');
 let parseIV = (opt) => {
   let ivContent;
   let ivPath = path.resolve(opt);
+
   if (fs.existsSync(ivPath)) {
     ivContent = fs.readFileSync(ivPath).toString();
   } else {
@@ -17,10 +18,10 @@ let parseIV = (opt) => {
   let ints = ivContent.match(/^0?x?(.{8})(.{8})(.{8})(.{8})/i);
 
   let iv = new Uint32Array([
-      parseInt(ints[1], 16),
-      parseInt(ints[2], 16),
-      parseInt(ints[3], 16),
-      parseInt(ints[4], 16)
+    parseInt(ints[1], 16),
+    parseInt(ints[2], 16),
+    parseInt(ints[3], 16),
+    parseInt(ints[4], 16)
   ]);
 
   return iv;
@@ -49,7 +50,8 @@ let key = new Uint32Array([
   keyContent.readUInt32BE(12)
 ]);
 
-let d = new Decrypter(
+/* eslint-disable no-new */
+new Decrypter(
   new Uint8Array(encryptedBytes),
   key,
   commander.iv,
@@ -66,4 +68,4 @@ let d = new Decrypter(
         process.stdout.write(data);
       }
     }
-});
+  });
