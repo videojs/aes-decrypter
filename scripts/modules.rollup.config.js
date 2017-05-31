@@ -12,6 +12,10 @@ export default {
   moduleName: 'aesDecrypter',
   entry: 'src/index.js',
   legacy: true,
+  external: ['global/window'],
+  globals: {
+    'global/window': 'window'
+  },
   plugins: [
     json(),
     babel({

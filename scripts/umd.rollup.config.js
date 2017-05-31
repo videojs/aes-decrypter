@@ -15,6 +15,10 @@ export default {
   dest: 'dist/aes-decrypter.js',
   format: 'umd',
   legacy: true,
+  external: ['global/window'],
+  globals: {
+    'global/window': 'window'
+  },
   plugins: [
     resolve({
       browser: true,
