@@ -269,5 +269,3 @@ export const decrypt = function(encrypted, key, iv, done) {
 
   return decryptionMethod(encrypted, key, iv, done);
 };
-
-export default decrypt;
