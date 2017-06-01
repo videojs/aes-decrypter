@@ -5,24 +5,14 @@
   "main": "dist/aes-decrypter.cjs.js",
   "module": "dist/aes-decrypter.es.js",
   "contributors": [
-    {
-      "name": "gkatsev",
-      "github": "https://github.com/gkatsev"
-    },
-    {
-      "name": "imbcmdth",
-      "github": "https://github.com/imbcmdth"
-    },
-    {
-      "name": "dmlap",
-      "github": "https://github.com/dmlap"
-    },
-    {
-      "name": "bcasey",
-      "github": "https://github.com/bcasey"
-    }
+    "gkatsev",
+    "imbcmdth",
+    "dmlap",
+    "bcasey"
   ],
-  "bin": "./bin/index.js",
+  "bin": {
+    "aes-decrypter": "./bin/index.js"
+  },
   "scripts": {
     "prebuild": "npm run clean",
     "build": "npm-run-all -p build:*",
@@ -132,5 +122,16 @@
   },
   "generator-videojs-plugin": {
     "version": "5.0.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/videojs/aes-decrypter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/videojs/aes-decrypter/issues"
+  },
+  "homepage": "https://github.com/videojs/aes-decrypter#readme"
 }
