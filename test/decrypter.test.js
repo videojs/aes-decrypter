@@ -37,9 +37,9 @@ QUnit.test('decrypts a single AES-128 with PKCS7 block', function(assert) {
   // Run native WebCrypto when available.
   decrypt(encrypted, key, iv, function(err, result) {
     if (err) {
-      QUnit.notOk(true, 'Non-null error.');
+      assert.notOk(true, 'Non-null error.');
     }
-    QUnit.deepEqual(bytesToASCIIString(result),
+    assert.deepEqual(bytesToASCIIString(result),
                     'howdy folks',
                     'decrypted with a byte array key'
                    );
@@ -69,9 +69,9 @@ QUnit.test('decrypts multiple AES-128 blocks with CBC', function(assert) {
   // Runs native WebCrypto when available.
   decrypt(encrypted, key, initVector, function(err, result) {
     if (err) {
-      QUnit.notOk(true, 'Non-null error.');
+      assert.notOk(true, 'Non-null error.');
     }
-    QUnit.deepEqual(stringFromBytes(result),
+    assert.deepEqual(stringFromBytes(result),
                     '0123456789abcdef01234',
                     'decrypted multiple blocks'
                    );
@@ -101,9 +101,9 @@ QUnit.test('decrypts a full segment', function(assert) {
   // Runs native WebCrypto when available.
   decrypt(encrypted, key, initVector, function(err, result) {
     if (err) {
-      QUnit.notOk(true, 'Non-null error.');
+      assert.notOk(true, 'Non-null error.');
     }
-    QUnit.deepEqual(stringFromBytes(result),
+    assert.deepEqual(stringFromBytes(result),
                     '0123456789abcdef01234',
                     'decrypted multiple blocks'
                    );
@@ -131,9 +131,9 @@ QUnit.test(
     // Runs native WebCrypto when available.
     decrypt(pkcs7Block, key, initVector, function(err, result) {
       if (err) {
-        QUnit.notOk(true, 'Non-null error.');
+        assert.notOk(true, 'Non-null error.');
       }
-      QUnit.deepEqual(stringFromBytes(result),
+      assert.deepEqual(stringFromBytes(result),
                       'howdy folks',
                       'decrypted with a byte array key'
                      );
@@ -156,9 +156,9 @@ QUnit.test(
     // Runs native WebCrypto when available.
     decrypt(cbcBlocks, key, initVector, function(err, result) {
       if (err) {
-        QUnit.notOk(true, 'Non-null error.');
+        assert.notOk(true, 'Non-null error.');
       }
-      QUnit.deepEqual(stringFromBytes(result),
+      assert.deepEqual(stringFromBytes(result),
                       '0123456789abcdef01234',
                       'decrypted multiple blocks'
                      );
@@ -187,9 +187,9 @@ QUnit.test('asynchronously decrypts a 4-word block', function(assert) {
                                 initVector,
                                 function(err, result) {
                                   if (err) {
-                                    QUnit.notOk(true, 'Non-null error.');
+                                    assert.notOk(true, 'Non-null error.');
                                   }
-                                  QUnit.deepEqual(
+                                  assert.deepEqual(
                                     stringFromBytes(result),
                                     'howdy folks',
                                     'decrypts and unpads the result'
@@ -208,7 +208,7 @@ QUnit.module('Incremental Processing', {
   }
 });
 
-QUnit.test('executes a callback after a timeout', function() {
+QUnit.test('executes a callback after a timeout', function(assert) {
   const asyncStream = new AsyncStream();
   let calls = '';
 
@@ -217,12 +217,12 @@ QUnit.test('executes a callback after a timeout', function() {
   });
 
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'a', 'invoked the callback once');
+  assert.equal(calls, 'a', 'invoked the callback once');
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'a', 'only invoked the callback once');
+  assert.equal(calls, 'a', 'only invoked the callback once');
 });
 
-QUnit.test('executes callback in series', function() {
+QUnit.test('executes callback in series', function(assert) {
   const asyncStream = new AsyncStream();
   let calls = '';
 
@@ -234,9 +234,9 @@ QUnit.test('executes callback in series', function() {
   });
 
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'a', 'invoked the first callback');
+  assert.equal(calls, 'a', 'invoked the first callback');
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'ab', 'invoked the second');
+  assert.equal(calls, 'ab', 'invoked the second');
 });
 
 QUnit.module('Incremental Decryption', {
@@ -248,7 +248,7 @@ QUnit.module('Incremental Decryption', {
   }
 });
 
-QUnit.test('breaks up input greater than the step value', function() {
+QUnit.test('breaks up input greater than the step value', function(assert) {
   const encrypted = new Int32Array(Decrypter.STEP + 4);
   let done = false;
 
@@ -262,8 +262,8 @@ QUnit.test('breaks up input greater than the step value', function() {
                                 });
 
   this.clock.tick(decrypter.asyncStream_.delay * 2);
-  QUnit.ok(!done, 'not finished after two ticks');
+  assert.ok(!done, 'not finished after two ticks');
 
   this.clock.tick(decrypter.asyncStream_.delay);
-  QUnit.ok(done, 'finished after the last chunk is decrypted');
+  assert.ok(done, 'finished after the last chunk is decrypted');
 });
