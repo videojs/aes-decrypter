@@ -70,7 +70,8 @@
       "dist",
       "docs",
       "test/dist",
-      "test/karma.conf.js"
+      "test/karma.conf.js",
+      "src/aes.js"
     ]
   },
   "files": [
