@@ -132,9 +132,5 @@
   },
   "generator-videojs-plugin": {
     "version": "5.0.0"
-  },
-  "keywords": [
-    "videojs",
-    "videojs-plugin"
-  ]
+  }
 }
