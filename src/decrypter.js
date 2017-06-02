@@ -36,15 +36,15 @@ const ntoh = function(word) {
  */
 const decryptNonNative = function(encrypted, key, initVector) {
   // word-level access to the encrypted bytes
-  let encrypted32 = new Int32Array(encrypted.buffer,
-                                   encrypted.byteOffset,
-                                   encrypted.byteLength >> 2);
+  const encrypted32 = new Int32Array(encrypted.buffer,
+                                     encrypted.byteOffset,
+                                     encrypted.byteLength >> 2);
 
-  let decipher = new AES(Array.prototype.slice.call(key));
+  const decipher = new AES(Array.prototype.slice.call(key));
 
   // byte and word-level access for the decrypted output
-  let decrypted = new Uint8Array(encrypted.byteLength);
-  let decrypted32 = new Int32Array(decrypted.buffer);
+  const decrypted = new Uint8Array(encrypted.byteLength);
+  const decrypted32 = new Int32Array(decrypted.buffer);
 
   // temporary variables for working with the IV, encrypted, and
   // decrypted data
@@ -115,16 +115,16 @@ const decryptNonNative = function(encrypted, key, initVector) {
  */
 export class Decrypter {
   constructor(encrypted, key, initVector, done) {
-    let view = new DataView(key.buffer);
-    let littleEndianKey = new Uint32Array([
+    const view = new DataView(key.buffer);
+    const littleEndianKey = new Uint32Array([
       view.getUint32(0),
       view.getUint32(4),
       view.getUint32(8),
       view.getUint32(12)
     ]);
-    let step = Decrypter.STEP;
-    let encrypted32 = new Int32Array(encrypted.buffer);
-    let decrypted = new Uint8Array(encrypted.byteLength);
+    const step = Decrypter.STEP;
+    const encrypted32 = new Int32Array(encrypted.buffer);
+    const decrypted = new Uint8Array(encrypted.byteLength);
     let i = 0;
 
     this.asyncStream_ = new AsyncStream();
@@ -168,7 +168,7 @@ export class Decrypter {
     return function() {
       // decryptNonNative must be a separate function (not a method or
       // static method on Decrypter) else IE10 will crash.
-      let bytes = decryptNonNative(encrypted, key, initVector);
+      const bytes = decryptNonNative(encrypted, key, initVector);
 
       decrypted.set(bytes, encrypted.byteOffset);
     };
@@ -189,7 +189,7 @@ const getWebCrypto = function() {
     return null;
   }
 
-  let _crypto = window.crypto;
+  const _crypto = window.crypto;
 
   if (!_crypto) {
     return null;
@@ -218,12 +218,12 @@ const getWebCrypto = function() {
  * @see https://tools.ietf.org/html/rfc2315
  */
 const decryptWithWebCrypto = function(encrypted, key, iv, done) {
-  let crypto = getWebCrypto();
-  let algorithm = {name: 'AES-CBC', iv};
-  let extractable = true;
-  let usages = ['decrypt'];
+  const crypto = getWebCrypto();
+  const algorithm = {name: 'AES-CBC', iv};
+  const extractable = true;
+  const usages = ['decrypt'];
 
-  let keyPromise = crypto.subtle.importKey('raw', key, algorithm, extractable, usages);
+  const keyPromise = crypto.subtle.importKey('raw', key, algorithm, extractable, usages);
 
   return keyPromise.then(function(importedKey) {
     return crypto.subtle.decrypt(algorithm, importedKey, encrypted);
@@ -265,9 +265,7 @@ const decryptWithDecrypter = function(encrypted, key, iv, done) {
  * @see https://tools.ietf.org/html/rfc2315
  */
 export const decrypt = function(encrypted, key, iv, done) {
-  let decryptionMethod = getWebCrypto() ? decryptWithWebCrypto : decryptWithDecrypter;
+  const decryptionMethod = getWebCrypto() ? decryptWithWebCrypto : decryptWithDecrypter;
 
   return decryptionMethod(encrypted, key, iv, done);
 };
-
-export default decrypt;

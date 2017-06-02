@@ -20,14 +20,14 @@ const bytesToASCIIString = function(bytes) {
 QUnit.module('Decryption');
 
 QUnit.test('decrypts a single AES-128 with PKCS7 block', function(assert) {
-  let done = assert.async();
+  const done = assert.async();
 
   assert.expect(1);
 
-  let key = new Uint8Array(16);
-  let iv = key;
+  const key = new Uint8Array(16);
+  const iv = key;
   // the string "howdy folks" encrypted
-  let encrypted = new Uint8Array([
+  const encrypted = new Uint8Array([
     0xce, 0x90, 0x97, 0xd0,
     0x08, 0x46, 0x4d, 0x18,
     0x4f, 0xae, 0x01, 0x1c,
@@ -37,21 +37,21 @@ QUnit.test('decrypts a single AES-128 with PKCS7 block', function(assert) {
   // Run native WebCrypto when available.
   decrypt(encrypted, key, iv, function(err, result) {
     if (err) {
-      QUnit.notOk(true, 'Non-null error.');
+      assert.notOk(true, 'Non-null error.');
     }
-    QUnit.deepEqual(bytesToASCIIString(result),
-                    'howdy folks',
-                    'decrypted with a byte array key'
-                   );
+    assert.deepEqual(bytesToASCIIString(result),
+                     'howdy folks',
+                     'decrypted with a byte array key'
+                    );
     done();
   });
 });
 
 QUnit.test('decrypts multiple AES-128 blocks with CBC', function(assert) {
-  let key = new Uint8Array(16);
-  let initVector = key;
+  const key = new Uint8Array(16);
+  const initVector = key;
   // the string "0123456789abcdef01234" encrypted
-  let encrypted = new Uint8Array([
+  const encrypted = new Uint8Array([
     0x14, 0xf5, 0xfe, 0x74,
     0x69, 0x66, 0xf2, 0x92,
     0x65, 0x1c, 0x22, 0x88,
@@ -62,28 +62,28 @@ QUnit.test('decrypts multiple AES-128 blocks with CBC', function(assert) {
     0xa9, 0x54, 0xc2, 0x45,
     0xe9, 0x4e, 0x29, 0xb3
   ]);
-  let done = assert.async();
+  const done = assert.async();
 
   assert.expect(1);
 
   // Runs native WebCrypto when available.
   decrypt(encrypted, key, initVector, function(err, result) {
     if (err) {
-      QUnit.notOk(true, 'Non-null error.');
+      assert.notOk(true, 'Non-null error.');
     }
-    QUnit.deepEqual(stringFromBytes(result),
-                    '0123456789abcdef01234',
-                    'decrypted multiple blocks'
-                   );
+    assert.deepEqual(stringFromBytes(result),
+                     '0123456789abcdef01234',
+                     'decrypted multiple blocks'
+                    );
     done();
   });
 });
 
 QUnit.test('decrypts a full segment', function(assert) {
-  let key = new Uint8Array(16);
-  let initVector = key;
+  const key = new Uint8Array(16);
+  const initVector = key;
   // the string "0123456789abcdef01234" encrypted
-  let encrypted = new Uint8Array([
+  const encrypted = new Uint8Array([
     0x14, 0xf5, 0xfe, 0x74,
     0x69, 0x66, 0xf2, 0x92,
     0x65, 0x1c, 0x22, 0x88,
@@ -94,19 +94,19 @@ QUnit.test('decrypts a full segment', function(assert) {
     0xa9, 0x54, 0xc2, 0x45,
     0xe9, 0x4e, 0x29, 0xb3
   ]);
-  let done = assert.async();
+  const done = assert.async();
 
   assert.expect(1);
 
   // Runs native WebCrypto when available.
   decrypt(encrypted, key, initVector, function(err, result) {
     if (err) {
-      QUnit.notOk(true, 'Non-null error.');
+      assert.notOk(true, 'Non-null error.');
     }
-    QUnit.deepEqual(stringFromBytes(result),
-                    '0123456789abcdef01234',
-                    'decrypted multiple blocks'
-                   );
+    assert.deepEqual(stringFromBytes(result),
+                     '0123456789abcdef01234',
+                     'decrypted multiple blocks'
+                    );
     done();
   });
 });
@@ -116,12 +116,12 @@ QUnit.test(
   function(assert) {
     assert.expect(2);
 
-    let done = assert.async(2);
-    let key = new Uint8Array(16);
-    let initVector = key;
+    const done = assert.async(2);
+    const key = new Uint8Array(16);
+    const initVector = key;
 
     // the string "howdy folks" encrypted
-    let pkcs7Block = new Uint8Array([
+    const pkcs7Block = new Uint8Array([
       0xce, 0x90, 0x97, 0xd0,
       0x08, 0x46, 0x4d, 0x18,
       0x4f, 0xae, 0x01, 0x1c,
@@ -131,17 +131,17 @@ QUnit.test(
     // Runs native WebCrypto when available.
     decrypt(pkcs7Block, key, initVector, function(err, result) {
       if (err) {
-        QUnit.notOk(true, 'Non-null error.');
+        assert.notOk(true, 'Non-null error.');
       }
-      QUnit.deepEqual(stringFromBytes(result),
-                      'howdy folks',
-                      'decrypted with a byte array key'
-                     );
+      assert.deepEqual(stringFromBytes(result),
+                       'howdy folks',
+                       'decrypted with a byte array key'
+                      );
       done();
     });
 
     // the string "0123456789abcdef01234" encrypted
-    let cbcBlocks = new Uint8Array([
+    const cbcBlocks = new Uint8Array([
       0x14, 0xf5, 0xfe, 0x74,
       0x69, 0x66, 0xf2, 0x92,
       0x65, 0x1c, 0x22, 0x88,
@@ -156,12 +156,12 @@ QUnit.test(
     // Runs native WebCrypto when available.
     decrypt(cbcBlocks, key, initVector, function(err, result) {
       if (err) {
-        QUnit.notOk(true, 'Non-null error.');
+        assert.notOk(true, 'Non-null error.');
       }
-      QUnit.deepEqual(stringFromBytes(result),
-                      '0123456789abcdef01234',
-                      'decrypted multiple blocks'
-                     );
+      assert.deepEqual(stringFromBytes(result),
+                       '0123456789abcdef01234',
+                       'decrypted multiple blocks'
+                      );
       done();
     });
   }
@@ -170,26 +170,28 @@ QUnit.test(
 QUnit.test('asynchronously decrypts a 4-word block', function(assert) {
   assert.expect(1);
 
-  let done = assert.async();
-  let key = new Uint8Array(16);
-  let initVector = new Uint32Array(4);
+  const done = assert.async();
+  const key = new Uint8Array(16);
+  const initVector = new Uint32Array(4);
   // the string "howdy folks" encrypted
-  let encrypted = new Uint8Array([0xce, 0x90, 0x97, 0xd0,
-                                  0x08, 0x46, 0x4d, 0x18,
-                                  0x4f, 0xae, 0x01, 0x1c,
-                                  0x82, 0xa8, 0xf0, 0x67]);
+  const encrypted = new Uint8Array([
+    0xce, 0x90, 0x97, 0xd0,
+    0x08, 0x46, 0x4d, 0x18,
+    0x4f, 0xae, 0x01, 0x1c,
+    0x82, 0xa8, 0xf0, 0x67
+  ]);
   /* eslint-disable no-unused-vars */
 
   // Runs non-native JavaScript AES-CBC decryption always, even if
   // WebCrypto is available.
-  let decrypter = new Decrypter(encrypted,
+  const decrypter = new Decrypter(encrypted,
                                 key,
                                 initVector,
                                 function(err, result) {
                                   if (err) {
-                                    QUnit.notOk(true, 'Non-null error.');
+                                    assert.notOk(true, 'Non-null error.');
                                   }
-                                  QUnit.deepEqual(
+                                  assert.deepEqual(
                                     stringFromBytes(result),
                                     'howdy folks',
                                     'decrypts and unpads the result'
@@ -208,8 +210,8 @@ QUnit.module('Incremental Processing', {
   }
 });
 
-QUnit.test('executes a callback after a timeout', function() {
-  let asyncStream = new AsyncStream();
+QUnit.test('executes a callback after a timeout', function(assert) {
+  const asyncStream = new AsyncStream();
   let calls = '';
 
   asyncStream.push(function() {
@@ -217,13 +219,13 @@ QUnit.test('executes a callback after a timeout', function() {
   });
 
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'a', 'invoked the callback once');
+  assert.equal(calls, 'a', 'invoked the callback once');
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'a', 'only invoked the callback once');
+  assert.equal(calls, 'a', 'only invoked the callback once');
 });
 
-QUnit.test('executes callback in series', function() {
-  let asyncStream = new AsyncStream();
+QUnit.test('executes callback in series', function(assert) {
+  const asyncStream = new AsyncStream();
   let calls = '';
 
   asyncStream.push(function() {
@@ -234,9 +236,9 @@ QUnit.test('executes callback in series', function() {
   });
 
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'a', 'invoked the first callback');
+  assert.equal(calls, 'a', 'invoked the first callback');
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'ab', 'invoked the second');
+  assert.equal(calls, 'ab', 'invoked the second');
 });
 
 QUnit.module('Incremental Decryption', {
@@ -248,22 +250,22 @@ QUnit.module('Incremental Decryption', {
   }
 });
 
-QUnit.test('breaks up input greater than the step value', function() {
-  let encrypted = new Int32Array(Decrypter.STEP + 4);
+QUnit.test('breaks up input greater than the step value', function(assert) {
+  const encrypted = new Int32Array(Decrypter.STEP + 4);
   let done = false;
 
   // Runs non-native JavaScript AES-CBC decryption always, even if
   // WebCrypto is available.
-  let decrypter = new Decrypter(encrypted,
-                                new Uint8Array(16),
-                                new Uint32Array(4),
-                                function() {
-                                  done = true;
-                                });
+  const decrypter = new Decrypter(encrypted,
+                                  new Uint8Array(16),
+                                  new Uint32Array(4),
+                                  function() {
+                                    done = true;
+                                  });
 
   this.clock.tick(decrypter.asyncStream_.delay * 2);
-  QUnit.ok(!done, 'not finished after two ticks');
+  assert.ok(!done, 'not finished after two ticks');
 
   this.clock.tick(decrypter.asyncStream_.delay);
-  QUnit.ok(done, 'finished after the last chunk is decrypted');
+  assert.ok(done, 'finished after the last chunk is decrypted');
 });

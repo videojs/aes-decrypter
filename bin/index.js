@@ -1,23 +1,23 @@
 #!/usr/bin/env node
 'use strict';
 
-let decrypt = require('../').decrypt;
-let commander = require('commander');
-let fs = require('fs');
-let path = require('path');
+const decrypt = require('../').decrypt;
+const commander = require('commander');
+const fs = require('fs');
+const path = require('path');
 
-let parseIV = (opt) => {
+const parseIV = (opt) => {
   let ivContent;
-  let ivPath = path.resolve(opt);
+  const ivPath = path.resolve(opt);
 
   if (fs.existsSync(ivPath)) {
     ivContent = fs.readFileSync(ivPath).toString();
   } else {
     ivContent = opt;
   }
-  let ints = ivContent.match(/^0?x?(.{8})(.{8})(.{8})(.{8})/i);
+  const ints = ivContent.match(/^0?x?(.{8})(.{8})(.{8})(.{8})/i);
 
-  let iv = new Uint32Array([
+  const iv = new Uint32Array([
     parseInt(ints[1], 16),
     parseInt(ints[2], 16),
     parseInt(ints[3], 16),
@@ -27,17 +27,17 @@ let parseIV = (opt) => {
   return iv;
 };
 
-let parseKey = (opt) => {
-  let keyPath = path.resolve(opt);
+const parseKey = (opt) => {
+  const keyPath = path.resolve(opt);
 
   if (fs.existsSync(keyPath)) {
-    let keyContent = fs.readFileSync(keyPath);
+    const keyContent = fs.readFileSync(keyPath);
 
     return new Uint8Array(keyContent);
   }
 
-  let keyContent = opt;
-  let ints = keyContent.match(/^0?x?(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})/i);
+  const keyContent = opt;
+  const ints = keyContent.match(/^0?x?(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})/i);
 
   return new Uint8Array([
     parseInt(ints[1], 16),
@@ -72,7 +72,7 @@ if (commander.args.length < 1 ||
   process.exit(1);
 }
 
-let encryptedBytes = fs.readFileSync(path.resolve(commander.args[0]));
+const encryptedBytes = fs.readFileSync(path.resolve(commander.args[0]));
 
 decrypt(
   new Uint8Array(encryptedBytes),
@@ -81,7 +81,7 @@ decrypt(
   function(err, decryptedBytes) {
     // err always null
     if (!err) {
-      let data = new Buffer(decryptedBytes);
+      const data = new Buffer(decryptedBytes);
 
       if (commander.args.length > 1) {
         // If we have a filename to write to, do it
