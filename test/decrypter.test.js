@@ -134,9 +134,9 @@ QUnit.test(
         assert.notOk(true, 'Non-null error.');
       }
       assert.deepEqual(stringFromBytes(result),
-                      'howdy folks',
-                      'decrypted with a byte array key'
-                     );
+                       'howdy folks',
+                       'decrypted with a byte array key'
+                      );
       done();
     });
 
@@ -159,9 +159,9 @@ QUnit.test(
         assert.notOk(true, 'Non-null error.');
       }
       assert.deepEqual(stringFromBytes(result),
-                      '0123456789abcdef01234',
-                      'decrypted multiple blocks'
-                     );
+                       '0123456789abcdef01234',
+                       'decrypted multiple blocks'
+                      );
       done();
     });
   }
