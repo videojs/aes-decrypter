@@ -40,9 +40,9 @@ QUnit.test('decrypts a single AES-128 with PKCS7 block', function(assert) {
       assert.notOk(true, 'Non-null error.');
     }
     assert.deepEqual(bytesToASCIIString(result),
-                    'howdy folks',
-                    'decrypted with a byte array key'
-                   );
+                     'howdy folks',
+                     'decrypted with a byte array key'
+                    );
     done();
   });
 });
@@ -72,9 +72,9 @@ QUnit.test('decrypts multiple AES-128 blocks with CBC', function(assert) {
       assert.notOk(true, 'Non-null error.');
     }
     assert.deepEqual(stringFromBytes(result),
-                    '0123456789abcdef01234',
-                    'decrypted multiple blocks'
-                   );
+                     '0123456789abcdef01234',
+                     'decrypted multiple blocks'
+                    );
     done();
   });
 });
@@ -104,9 +104,9 @@ QUnit.test('decrypts a full segment', function(assert) {
       assert.notOk(true, 'Non-null error.');
     }
     assert.deepEqual(stringFromBytes(result),
-                    '0123456789abcdef01234',
-                    'decrypted multiple blocks'
-                   );
+                     '0123456789abcdef01234',
+                     'decrypted multiple blocks'
+                    );
     done();
   });
 });
@@ -255,11 +255,11 @@ QUnit.test('breaks up input greater than the step value', function(assert) {
   // Runs non-native JavaScript AES-CBC decryption always, even if
   // WebCrypto is available.
   const decrypter = new Decrypter(encrypted,
-                                new Uint8Array(16),
-                                new Uint32Array(4),
-                                function() {
-                                  done = true;
-                                });
+                                  new Uint8Array(16),
+                                  new Uint32Array(4),
+                                  function() {
+                                    done = true;
+                                  });
 
   this.clock.tick(decrypter.asyncStream_.delay * 2);
   assert.ok(!done, 'not finished after two ticks');

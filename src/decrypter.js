@@ -37,8 +37,8 @@ const ntoh = function(word) {
 const decryptNonNative = function(encrypted, key, initVector) {
   // word-level access to the encrypted bytes
   const encrypted32 = new Int32Array(encrypted.buffer,
-                                   encrypted.byteOffset,
-                                   encrypted.byteLength >> 2);
+                                     encrypted.byteOffset,
+                                     encrypted.byteLength >> 2);
 
   const decipher = new AES(Array.prototype.slice.call(key));
 
