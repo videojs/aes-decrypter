@@ -174,10 +174,12 @@ QUnit.test('asynchronously decrypts a 4-word block', function(assert) {
   const key = new Uint8Array(16);
   const initVector = new Uint32Array(4);
   // the string "howdy folks" encrypted
-  const encrypted = new Uint8Array([0xce, 0x90, 0x97, 0xd0,
-                                  0x08, 0x46, 0x4d, 0x18,
-                                  0x4f, 0xae, 0x01, 0x1c,
-                                  0x82, 0xa8, 0xf0, 0x67]);
+  const encrypted = new Uint8Array([
+    0xce, 0x90, 0x97, 0xd0,
+    0x08, 0x46, 0x4d, 0x18,
+    0x4f, 0xae, 0x01, 0x1c,
+    0x82, 0xa8, 0xf0, 0x67
+  ]);
   /* eslint-disable no-unused-vars */
 
   // Runs non-native JavaScript AES-CBC decryption always, even if
