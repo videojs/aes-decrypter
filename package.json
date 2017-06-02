@@ -76,7 +76,7 @@
   "dependencies": {
     "commander": "^2.9.0",
     "global": "^4.3.2",
-    "pkcs7": "^1.0.1"
+    "pkcs7": "^1.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
