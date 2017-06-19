@@ -16,10 +16,10 @@ const stringFromBytes = function(bytes) {
 
 QUnit.module('Decryption');
 QUnit.test('decrypts a single AES-128 with PKCS7 block', function() {
-  let key = new Uint32Array([0, 0, 0, 0]);
-  let initVector = key;
+  const key = new Uint32Array([0, 0, 0, 0]);
+  const initVector = key;
   // the string "howdy folks" encrypted
-  let encrypted = new Uint8Array([
+  const encrypted = new Uint8Array([
     0xce, 0x90, 0x97, 0xd0,
     0x08, 0x46, 0x4d, 0x18,
     0x4f, 0xae, 0x01, 0x1c,
@@ -33,10 +33,10 @@ QUnit.test('decrypts a single AES-128 with PKCS7 block', function() {
 });
 
 QUnit.test('decrypts multiple AES-128 blocks with CBC', function() {
-  let key = new Uint32Array([0, 0, 0, 0]);
-  let initVector = key;
+  const key = new Uint32Array([0, 0, 0, 0]);
+  const initVector = key;
   // the string "0123456789abcdef01234" encrypted
-  let encrypted = new Uint8Array([
+  const encrypted = new Uint8Array([
     0x14, 0xf5, 0xfe, 0x74,
     0x69, 0x66, 0xf2, 0x92,
     0x65, 0x1c, 0x22, 0x88,
@@ -56,10 +56,10 @@ QUnit.test('decrypts multiple AES-128 blocks with CBC', function() {
 QUnit.test(
 'verify that the deepcopy works by doing two decrypts in the same test',
 function() {
-  let key = new Uint32Array([0, 0, 0, 0]);
-  let initVector = key;
+  const key = new Uint32Array([0, 0, 0, 0]);
+  const initVector = key;
   // the string "howdy folks" encrypted
-  let pkcs7Block = new Uint8Array([
+  const pkcs7Block = new Uint8Array([
     0xce, 0x90, 0x97, 0xd0,
     0x08, 0x46, 0x4d, 0x18,
     0x4f, 0xae, 0x01, 0x1c,
@@ -72,7 +72,7 @@ function() {
   );
 
 // the string "0123456789abcdef01234" encrypted
-  let cbcBlocks = new Uint8Array([
+  const cbcBlocks = new Uint8Array([
     0x14, 0xf5, 0xfe, 0x74,
     0x69, 0x66, 0xf2, 0x92,
     0x65, 0x1c, 0x22, 0x88,
@@ -100,7 +100,7 @@ QUnit.module('Incremental Processing', {
 });
 
 QUnit.test('executes a callback after a timeout', function() {
-  let asyncStream = new AsyncStream();
+  const asyncStream = new AsyncStream();
   let calls = '';
 
   asyncStream.push(function() {
@@ -114,7 +114,7 @@ QUnit.test('executes a callback after a timeout', function() {
 });
 
 QUnit.test('executes callback in series', function() {
-  let asyncStream = new AsyncStream();
+  const asyncStream = new AsyncStream();
   let calls = '';
 
   asyncStream.push(function() {
@@ -140,23 +140,23 @@ QUnit.module('Incremental Decryption', {
 });
 
 QUnit.test('asynchronously decrypts a 4-word block', function() {
-  let key = new Uint32Array([0, 0, 0, 0]);
-  let initVector = key;
+  const key = new Uint32Array([0, 0, 0, 0]);
+  const initVector = key;
   // the string "howdy folks" encrypted
-  let encrypted = new Uint8Array([0xce, 0x90, 0x97, 0xd0,
-                                  0x08, 0x46, 0x4d, 0x18,
-                                  0x4f, 0xae, 0x01, 0x1c,
-                                  0x82, 0xa8, 0xf0, 0x67]);
+  const encrypted = new Uint8Array([0xce, 0x90, 0x97, 0xd0,
+                                    0x08, 0x46, 0x4d, 0x18,
+                                    0x4f, 0xae, 0x01, 0x1c,
+                                    0x82, 0xa8, 0xf0, 0x67]);
   let decrypted;
-  let decrypter = new Decrypter(encrypted,
-                                key,
-                                initVector,
-                                function(error, result) {
-                                  if (error) {
-                                    throw new Error(error);
-                                  }
-                                  decrypted = result;
-                                });
+  const decrypter = new Decrypter(encrypted,
+                                  key,
+                                  initVector,
+                                  function(error, result) {
+                                    if (error) {
+                                      throw new Error(error);
+                                    }
+                                    decrypted = result;
+                                  });
 
   QUnit.ok(!decrypted, 'asynchronously decrypts');
   this.clock.tick(decrypter.asyncStream_.delay * 2);
@@ -168,14 +168,14 @@ QUnit.test('asynchronously decrypts a 4-word block', function() {
 });
 
 QUnit.test('breaks up input greater than the step value', function() {
-  let encrypted = new Int32Array(Decrypter.STEP + 4);
+  const encrypted = new Int32Array(Decrypter.STEP + 4);
   let done = false;
-  let decrypter = new Decrypter(encrypted,
-                                new Uint32Array(4),
-                                new Uint32Array(4),
-                                function() {
-                                  done = true;
-                                });
+  const decrypter = new Decrypter(encrypted,
+                                  new Uint32Array(4),
+                                  new Uint32Array(4),
+                                  function() {
+                                    done = true;
+                                  });
 
   this.clock.tick(decrypter.asyncStream_.delay * 2);
   QUnit.ok(!done, 'not finished after two ticks');
