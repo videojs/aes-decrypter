@@ -15,7 +15,7 @@ const stringFromBytes = function(bytes) {
 };
 
 QUnit.module('Decryption');
-QUnit.test('decrypts a single AES-128 with PKCS7 block', function() {
+QUnit.test('decrypts a single AES-128 with PKCS7 block', function(assert) {
   const key = new Uint32Array([0, 0, 0, 0]);
   const initVector = key;
   // the string "howdy folks" encrypted
@@ -26,13 +26,13 @@ QUnit.test('decrypts a single AES-128 with PKCS7 block', function() {
     0x82, 0xa8, 0xf0, 0x67
   ]);
 
-  QUnit.deepEqual('howdy folks',
-                  stringFromBytes(unpad(decrypt(encrypted, key, initVector))),
-                  'decrypted with a byte array key'
+  assert.deepEqual('howdy folks',
+                   stringFromBytes(unpad(decrypt(encrypted, key, initVector))),
+                   'decrypted with a byte array key'
   );
 });
 
-QUnit.test('decrypts multiple AES-128 blocks with CBC', function() {
+QUnit.test('decrypts multiple AES-128 blocks with CBC', function(assert) {
   const key = new Uint32Array([0, 0, 0, 0]);
   const initVector = key;
   // the string "0123456789abcdef01234" encrypted
@@ -48,14 +48,14 @@ QUnit.test('decrypts multiple AES-128 blocks with CBC', function() {
     0xe9, 0x4e, 0x29, 0xb3
   ]);
 
-  QUnit.deepEqual('0123456789abcdef01234',
-                  stringFromBytes(unpad(decrypt(encrypted, key, initVector))),
-                  'decrypted multiple blocks');
+  assert.deepEqual('0123456789abcdef01234',
+                   stringFromBytes(unpad(decrypt(encrypted, key, initVector))),
+                   'decrypted multiple blocks');
 });
 
 QUnit.test(
 'verify that the deepcopy works by doing two decrypts in the same test',
-function() {
+function(assert) {
   const key = new Uint32Array([0, 0, 0, 0]);
   const initVector = key;
   // the string "howdy folks" encrypted
@@ -66,9 +66,9 @@ function() {
     0x82, 0xa8, 0xf0, 0x67
   ]);
 
-  QUnit.deepEqual('howdy folks',
-                  stringFromBytes(unpad(decrypt(pkcs7Block, key, initVector))),
-                  'decrypted with a byte array key'
+  assert.deepEqual('howdy folks',
+                   stringFromBytes(unpad(decrypt(pkcs7Block, key, initVector))),
+                   'decrypted with a byte array key'
   );
 
 // the string "0123456789abcdef01234" encrypted
@@ -84,22 +84,22 @@ function() {
     0xe9, 0x4e, 0x29, 0xb3
   ]);
 
-  QUnit.deepEqual('0123456789abcdef01234',
-                  stringFromBytes(unpad(decrypt(cbcBlocks, key, initVector))),
-                  'decrypted multiple blocks');
+  assert.deepEqual('0123456789abcdef01234',
+                   stringFromBytes(unpad(decrypt(cbcBlocks, key, initVector))),
+                   'decrypted multiple blocks');
 
 });
 
 QUnit.module('Incremental Processing', {
-  beforeEach() {
+  undefined() {
     this.clock = sinon.useFakeTimers();
   },
-  afterEach() {
+  undefined() {
     this.clock.restore();
   }
 });
 
-QUnit.test('executes a callback after a timeout', function() {
+QUnit.test('executes a callback after a timeout', function(assert) {
   const asyncStream = new AsyncStream();
   let calls = '';
 
@@ -108,12 +108,12 @@ QUnit.test('executes a callback after a timeout', function() {
   });
 
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'a', 'invoked the callback once');
+  assert.equal(calls, 'a', 'invoked the callback once');
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'a', 'only invoked the callback once');
+  assert.equal(calls, 'a', 'only invoked the callback once');
 });
 
-QUnit.test('executes callback in series', function() {
+QUnit.test('executes callback in series', function(assert) {
   const asyncStream = new AsyncStream();
   let calls = '';
 
@@ -125,21 +125,21 @@ QUnit.test('executes callback in series', function() {
   });
 
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'a', 'invoked the first callback');
+  assert.equal(calls, 'a', 'invoked the first callback');
   this.clock.tick(asyncStream.delay);
-  QUnit.equal(calls, 'ab', 'invoked the second');
+  assert.equal(calls, 'ab', 'invoked the second');
 });
 
 QUnit.module('Incremental Decryption', {
-  beforeEach() {
+  undefined() {
     this.clock = sinon.useFakeTimers();
   },
-  afterEach() {
+  undefined() {
     this.clock.restore();
   }
 });
 
-QUnit.test('asynchronously decrypts a 4-word block', function() {
+QUnit.test('asynchronously decrypts a 4-word block', function(assert) {
   const key = new Uint32Array([0, 0, 0, 0]);
   const initVector = key;
   // the string "howdy folks" encrypted
@@ -158,16 +158,16 @@ QUnit.test('asynchronously decrypts a 4-word block', function() {
                                     decrypted = result;
                                   });
 
-  QUnit.ok(!decrypted, 'asynchronously decrypts');
+  assert.ok(!decrypted, 'asynchronously decrypts');
   this.clock.tick(decrypter.asyncStream_.delay * 2);
 
-  QUnit.ok(decrypted, 'completed decryption');
-  QUnit.deepEqual('howdy folks',
-                  stringFromBytes(decrypted),
-                  'decrypts and unpads the result');
+  assert.ok(decrypted, 'completed decryption');
+  assert.deepEqual('howdy folks',
+                   stringFromBytes(decrypted),
+                   'decrypts and unpads the result');
 });
 
-QUnit.test('breaks up input greater than the step value', function() {
+QUnit.test('breaks up input greater than the step value', function(assert) {
   const encrypted = new Int32Array(Decrypter.STEP + 4);
   let done = false;
   const decrypter = new Decrypter(encrypted,
@@ -178,8 +178,8 @@ QUnit.test('breaks up input greater than the step value', function() {
                                   });
 
   this.clock.tick(decrypter.asyncStream_.delay * 2);
-  QUnit.ok(!done, 'not finished after two ticks');
+  assert.ok(!done, 'not finished after two ticks');
 
   this.clock.tick(decrypter.asyncStream_.delay);
-  QUnit.ok(done, 'finished after the last chunk is decrypted');
+  assert.ok(done, 'finished after the last chunk is decrypted');
 });
