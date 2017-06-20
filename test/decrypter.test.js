@@ -91,10 +91,10 @@ function(assert) {
 });
 
 QUnit.module('Incremental Processing', {
-  undefined() {
+  beforeEach() {
     this.clock = sinon.useFakeTimers();
   },
-  undefined() {
+  afterEach() {
     this.clock.restore();
   }
 });
@@ -131,10 +131,10 @@ QUnit.test('executes callback in series', function(assert) {
 });
 
 QUnit.module('Incremental Decryption', {
-  undefined() {
+  beforeEach() {
     this.clock = sinon.useFakeTimers();
   },
-  undefined() {
+  afterEach() {
     this.clock.restore();
   }
 });
