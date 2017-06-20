@@ -62,6 +62,7 @@
       "docs",
       "test/dist",
       "test/karma.conf.js",
+      "scripts",
       "src/aes.js"
     ]
   },
