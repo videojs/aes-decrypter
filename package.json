@@ -10,9 +10,6 @@
     "dmlap",
     "bcasey"
   ],
-  "bin": {
-    "aes-decrypter": "./bin/index.js"
-  },
   "scripts": {
     "prebuild": "npm run clean",
     "build": "npm-run-all -p build:*",
