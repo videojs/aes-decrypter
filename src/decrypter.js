@@ -33,17 +33,17 @@ const ntoh = function(word) {
  * @see http://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_.28CBC.29
  * @see https://tools.ietf.org/html/rfc2315
  */
-export const decrypt = function(encrypted, key, initVector) {
+const decrypt = function(encrypted, key, initVector) {
   // word-level access to the encrypted bytes
-  let encrypted32 = new Int32Array(encrypted.buffer,
-                                   encrypted.byteOffset,
-                                   encrypted.byteLength >> 2);
+  const encrypted32 = new Int32Array(encrypted.buffer,
+                                     encrypted.byteOffset,
+                                     encrypted.byteLength >> 2);
 
-  let decipher = new AES(Array.prototype.slice.call(key));
+  const decipher = new AES(Array.prototype.slice.call(key));
 
   // byte and word-level access for the decrypted output
-  let decrypted = new Uint8Array(encrypted.byteLength);
-  let decrypted32 = new Int32Array(decrypted.buffer);
+  const decrypted = new Uint8Array(encrypted.byteLength);
+  const decrypted32 = new Int32Array(decrypted.buffer);
 
   // temporary variables for working with the IV, encrypted, and
   // decrypted data
@@ -112,11 +112,11 @@ export const decrypt = function(encrypted, key, initVector) {
  * @param {Function} done the function to run when done
  * @class Decrypter
  */
-export class Decrypter {
+class Decrypter {
   constructor(encrypted, key, initVector, done) {
-    let step = Decrypter.STEP;
-    let encrypted32 = new Int32Array(encrypted.buffer);
-    let decrypted = new Uint8Array(encrypted.byteLength);
+    const step = Decrypter.STEP;
+    const encrypted32 = new Int32Array(encrypted.buffer);
+    const decrypted = new Uint8Array(encrypted.byteLength);
     let i = 0;
 
     this.asyncStream_ = new AsyncStream();
@@ -158,14 +158,14 @@ export class Decrypter {
    */
   decryptChunk_(encrypted, key, initVector, decrypted) {
     return function() {
-      let bytes = decrypt(encrypted, key, initVector);
+      const bytes = decrypt(encrypted, key, initVector);
 
       decrypted.set(bytes, encrypted.byteOffset);
     };
   }
 }
 
-export default {
+export {
   Decrypter,
   decrypt
 };

@@ -34,12 +34,12 @@ export default class Stream {
    * @return {Boolean} if we could turn it off or not
    */
   off(type, listener) {
-    let index;
-
     if (!this.listeners[type]) {
       return false;
     }
-    index = this.listeners[type].indexOf(listener);
+
+    const index = this.listeners[type].indexOf(listener);
+
     this.listeners[type].splice(index, 1);
     return index > -1;
   }
@@ -51,28 +51,27 @@ export default class Stream {
    * @param {String} type the event name
    */
   trigger(type) {
-    let callbacks;
-    let i;
-    let length;
-    let args;
+    const callbacks = this.listeners[type];
 
-    callbacks = this.listeners[type];
     if (!callbacks) {
       return;
     }
+
     // Slicing the arguments on every invocation of this method
     // can add a significant amount of overhead. Avoid the
     // intermediate object creation for the common case of a
     // single callback argument
     if (arguments.length === 2) {
-      length = callbacks.length;
-      for (i = 0; i < length; ++i) {
+      const length = callbacks.length;
+
+      for (let i = 0; i < length; ++i) {
         callbacks[i].call(this, arguments[1]);
       }
     } else {
-      args = Array.prototype.slice.call(arguments, 1);
-      length = callbacks.length;
-      for (i = 0; i < length; ++i) {
+      const args = Array.prototype.slice.call(arguments, 1);
+      const length = callbacks.length;
+
+      for (let i = 0; i < length; ++i) {
         callbacks[i].apply(this, args);
       }
     }

@@ -12,6 +12,12 @@
 npm install --save aes-decrypter
 ```
 
+Also available to install globally:
+
+```sh
+npm install --global aes-decrypter
+```
+
 The npm installation is preferred, but Bower works, too.
 
 ```sh
@@ -32,27 +38,26 @@ var keyContent = fs.readFileSync(keyFile);
 
 var view = new DataView(keyContent.buffer);
 var key.bytes = new Uint32Array([
-	view.getUint32(0),
-	view.getUint32(4),
-	view.getUint32(8),
-	view.getUint32(12)
+  view.getUint32(0),
+  view.getUint32(4),
+  view.getUint32(8),
+  view.getUint32(12)
 ]);
 
 key.iv = new Uint32Array([
-	0, 0, 0, 0
+  0, 0, 0, 0
 ]);
 
 var d = new Decrypter(
-	encryptedBytes,
-	key.bytes,
-	key.iv,
-	function(err, decryptedBytes) {
-		// err always null
+  encryptedBytes,
+  key.bytes,
+  key.iv,
+  function(err, decryptedBytes) {
+    // err always null
 });
-
 ```
 
-## License
+## [License](LICENSE)
 
 Apache-2.0. Copyright (c) Brightcove, Inc.
 
