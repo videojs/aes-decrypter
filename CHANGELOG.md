@@ -1,3 +1,19 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/videojs/aes-decrypter/compare/v2.0.0...v3.0.0) (2017-07-24)
+
+### Features
+
+* Use Rollup for packaging ([bda57ab](https://github.com/videojs/aes-decrypter/commit/bda57ab))
+
+### Chores
+
+* prepare CHANGELOG for new process ([1a5175c](https://github.com/videojs/aes-decrypter/commit/1a5175c))
+
+
+### BREAKING CHANGES
+
+* revert to 1.x and stop using web crypto.
+
 ## 2.0.0 (2016-11-15)
 * Use webcrypto for aes-cbc segment decryption when supported (#4)
 * Lock the linter to a specific version
