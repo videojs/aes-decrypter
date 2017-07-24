@@ -57,32 +57,7 @@ var d = new Decrypter(
 });
 ```
 
-## Command Line Usage
-
-Using this module as a command is as easy as:
-```bash
-$ aes-decrypter
-  Usage: aes-decrypter [options] <input file> [output file]
-
-  Options:
-
-    -h, --help     output usage information
-    -k, --key <n>  The keyfile as a 128bit hex-string or the path to a file containing the key in raw binary
-    -i, --iv <n>   The initialization vector as a 128bit hex-string or the path to a file containing a hex-string
-```
-
-Examples:
-```bash
-# Decrypt encrypted.bin with a keyfile and an initialization vector provided
-# on the command-line saving the output to decrypted.bin
-aes-decrypter -k encrypted.key -i 0x00000000000000000000000000000001 encrypted.bin decrypted.bin
-
-# Decrypt encrypted.bin with a keyfile and an initialization vector file
-# outputing the data to stdout
-aes-decrypter -k encrypted.key -i encrypted.iv encrypted.bin
-```
-
-## License
+## [License](LICENSE)
 
 Apache-2.0. Copyright (c) Brightcove, Inc.
 
