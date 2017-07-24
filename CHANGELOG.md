@@ -1,11 +1,3 @@
-CHANGELOG
-=========
-
-## HEAD (Unreleased)
-_(none)_
-
---------------------
-
 ## 2.0.0 (2016-11-15)
 * Use webcrypto for aes-cbc segment decryption when supported (#4)
 * Lock the linter to a specific version
