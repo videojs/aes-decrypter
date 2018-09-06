@@ -1,13 +1,20 @@
-# decrypter
+# aes-decrypter
 
+[![Build Status](https://travis-ci.org/videojs/aes-decrypter.svg?branch=master)](https://travis-ci.org/videojs/aes-decrypter)
 [![Greenkeeper badge](https://badges.greenkeeper.io/videojs/aes-decrypter.svg)](https://greenkeeper.io/)
+[![Slack Status](http://slack.videojs.com/badge.svg)](http://slack.videojs.com)
+
+[![NPM](https://nodei.co/npm/aes-decrypter.png?downloads=true&downloadRank=true)](https://nodei.co/npm/aes-decrypter/)
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
 
-## Table of Contents
-
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ## Installation
 
 ```sh

@@ -27,7 +27,7 @@ export default class AsyncStream extends Stream {
     this.jobs.shift()();
     if (this.jobs.length) {
       this.timeout_ = setTimeout(this.processJob_.bind(this),
-                                 this.delay);
+        this.delay);
     } else {
       this.timeout_ = null;
     }
@@ -42,7 +42,7 @@ export default class AsyncStream extends Stream {
     this.jobs.push(job);
     if (!this.timeout_) {
       this.timeout_ = setTimeout(this.processJob_.bind(this),
-                                 this.delay);
+        this.delay);
     }
   }
 }

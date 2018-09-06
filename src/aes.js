@@ -43,16 +43,16 @@
  * @private
  */
 const precompute = function() {
-  let tables = [[[], [], [], [], []], [[], [], [], [], []]];
-  let encTable = tables[0];
-  let decTable = tables[1];
-  let sbox = encTable[4];
-  let sboxInv = decTable[4];
+  const tables = [[[], [], [], [], []], [[], [], [], [], []]];
+  const encTable = tables[0];
+  const decTable = tables[1];
+  const sbox = encTable[4];
+  const sboxInv = decTable[4];
   let i;
   let x;
   let xInv;
-  let d = [];
-  let th = [];
+  const d = [];
+  const th = [];
   let x2;
   let x4;
   let x8;
@@ -101,7 +101,7 @@ let aesTables = null;
  */
 export default class AES {
   constructor(key) {
-   /**
+    /**
     * The expanded S-box and inverse S-box tables. These will be computed
     * on the client so that we don't have to send them down the wire.
     *
@@ -120,31 +120,30 @@ export default class AES {
     }
     // then make a copy of that object for use
     this._tables = [[aesTables[0][0].slice(),
-                     aesTables[0][1].slice(),
-                     aesTables[0][2].slice(),
-                     aesTables[0][3].slice(),
-                     aesTables[0][4].slice()],
-                    [aesTables[1][0].slice(),
-                     aesTables[1][1].slice(),
-                     aesTables[1][2].slice(),
-                     aesTables[1][3].slice(),
-                     aesTables[1][4].slice()]];
+      aesTables[0][1].slice(),
+      aesTables[0][2].slice(),
+      aesTables[0][3].slice(),
+      aesTables[0][4].slice()],
+    [aesTables[1][0].slice(),
+      aesTables[1][1].slice(),
+      aesTables[1][2].slice(),
+      aesTables[1][3].slice(),
+      aesTables[1][4].slice()]];
     let i;
     let j;
     let tmp;
-    let encKey;
-    let decKey;
-    let sbox = this._tables[0][4];
-    let decTable = this._tables[1];
-    let keyLen = key.length;
+    const sbox = this._tables[0][4];
+    const decTable = this._tables[1];
+    const keyLen = key.length;
     let rcon = 1;
 
     if (keyLen !== 4 && keyLen !== 6 && keyLen !== 8) {
       throw new Error('Invalid aes key size');
     }
 
-    encKey = key.slice(0);
-    decKey = [];
+    const encKey = key.slice(0);
+    const decKey = [];
+
     this._key = [encKey, decKey];
 
     // schedule encryption keys
@@ -185,18 +184,18 @@ export default class AES {
   /**
    * Decrypt 16 bytes, specified as four 32-bit words.
    *
-   * @param {Number} encrypted0 the first word to decrypt
-   * @param {Number} encrypted1 the second word to decrypt
-   * @param {Number} encrypted2 the third word to decrypt
-   * @param {Number} encrypted3 the fourth word to decrypt
+   * @param {number} encrypted0 the first word to decrypt
+   * @param {number} encrypted1 the second word to decrypt
+   * @param {number} encrypted2 the third word to decrypt
+   * @param {number} encrypted3 the fourth word to decrypt
    * @param {Int32Array} out the array to write the decrypted words
    * into
-   * @param {Number} offset the offset into the output array to start
+   * @param {number} offset the offset into the output array to start
    * writing results
    * @return {Array} The plaintext.
    */
   decrypt(encrypted0, encrypted1, encrypted2, encrypted3, out, offset) {
-    let key = this._key[1];
+    const key = this._key[1];
     // state variables a,b,c,d are loaded with pre-whitened data
     let a = encrypted0 ^ key[0];
     let b = encrypted3 ^ key[1];
@@ -207,17 +206,17 @@ export default class AES {
     let c2;
 
     // key.length === 2 ?
-    let nInnerRounds = key.length / 4 - 2;
+    const nInnerRounds = key.length / 4 - 2;
     let i;
     let kIndex = 4;
-    let table = this._tables[1];
+    const table = this._tables[1];
 
     // load up the tables
-    let table0 = table[0];
-    let table1 = table[1];
-    let table2 = table[2];
-    let table3 = table[3];
-    let sbox = table[4];
+    const table0 = table[0];
+    const table1 = table[1];
+    const table2 = table[2];
+    const table3 = table[3];
+    const sbox = table[4];
 
     // Inner rounds. Cribbed from OpenSSL.
     for (i = 0; i < nInnerRounds; i++) {
