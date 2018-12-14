@@ -4,7 +4,7 @@
 import Stream from './stream';
 
 /**
- * A wrapper around the Stream class to use setTiemout
+ * A wrapper around the Stream class to use setTimeout
  * and run stream "jobs" Asynchronously
  *
  * @class AsyncStream
