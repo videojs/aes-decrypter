@@ -1,7 +1,7 @@
 /**
  * @file async-stream.js
  */
-import Stream from '@videojs/vhs-utils/dist/stream.es.js';
+import Stream from '@videojs/vhs-utils/dist/stream.js';
 
 /**
  * A wrapper around the Stream class to use setTimeout
