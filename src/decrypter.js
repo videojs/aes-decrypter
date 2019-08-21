@@ -35,9 +35,11 @@ const ntoh = function(word) {
  */
 const decrypt = function(encrypted, key, initVector) {
   // word-level access to the encrypted bytes
-  const encrypted32 = new Int32Array(encrypted.buffer,
+  const encrypted32 = new Int32Array(
+    encrypted.buffer,
     encrypted.byteOffset,
-    encrypted.byteLength >> 2);
+    encrypted.byteLength >> 2
+  );
 
   const decipher = new AES(Array.prototype.slice.call(key));
 
@@ -77,12 +79,14 @@ const decrypt = function(encrypted, key, initVector) {
     encrypted3 = ntoh(encrypted32[wordIx + 3]);
 
     // decrypt the block
-    decipher.decrypt(encrypted0,
+    decipher.decrypt(
+      encrypted0,
       encrypted1,
       encrypted2,
       encrypted3,
       decrypted32,
-      wordIx);
+      wordIx
+    );
 
     // XOR with the IV, and restore network byte-order to obtain the
     // plaintext
@@ -122,19 +126,23 @@ class Decrypter {
     this.asyncStream_ = new AsyncStream();
 
     // split up the encryption job and do the individual chunks asynchronously
-    this.asyncStream_.push(this.decryptChunk_(encrypted32.subarray(i, i + step),
+    this.asyncStream_.push(this.decryptChunk_(
+      encrypted32.subarray(i, i + step),
       key,
       initVector,
-      decrypted));
+      decrypted
+    ));
     for (i = step; i < encrypted32.length; i += step) {
       initVector = new Uint32Array([ntoh(encrypted32[i - 4]),
         ntoh(encrypted32[i - 3]),
         ntoh(encrypted32[i - 2]),
         ntoh(encrypted32[i - 1])]);
-      this.asyncStream_.push(this.decryptChunk_(encrypted32.subarray(i, i + step),
+      this.asyncStream_.push(this.decryptChunk_(
+        encrypted32.subarray(i, i + step),
         key,
         initVector,
-        decrypted));
+        decrypted
+      ));
     }
     // invoke the done() callback when everything is finished
     this.asyncStream_.push(function() {

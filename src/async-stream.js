@@ -1,7 +1,7 @@
 /**
  * @file async-stream.js
  */
-import Stream from './stream';
+import Stream from '@videojs/vhs-utils/dist/stream.js';
 
 /**
  * A wrapper around the Stream class to use setTimeout
@@ -26,8 +26,10 @@ export default class AsyncStream extends Stream {
   processJob_() {
     this.jobs.shift()();
     if (this.jobs.length) {
-      this.timeout_ = setTimeout(this.processJob_.bind(this),
-        this.delay);
+      this.timeout_ = setTimeout(
+        this.processJob_.bind(this),
+        this.delay
+      );
     } else {
       this.timeout_ = null;
     }
@@ -41,8 +43,10 @@ export default class AsyncStream extends Stream {
   push(job) {
     this.jobs.push(job);
     if (!this.timeout_) {
-      this.timeout_ = setTimeout(this.processJob_.bind(this),
-        this.delay);
+      this.timeout_ = setTimeout(
+        this.processJob_.bind(this),
+        this.delay
+      );
     }
   }
 }
