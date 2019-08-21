@@ -1,3 +1,16 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/videojs/aes-decrypter/compare/v3.0.0...v3.0.1) (2019-08-21)
+
+### Chores
+
+* **package:** update rollup to version 0.66.0 ([#38](https://github.com/videojs/aes-decrypter/issues/38)) ([634556b](https://github.com/videojs/aes-decrypter/commit/634556b))
+* bump videojs-generate-karma-config version ([#51](https://github.com/videojs/aes-decrypter/issues/51)) ([195b923](https://github.com/videojs/aes-decrypter/commit/195b923))
+* **package:** update videojs-generate-karma-config to version 5.0.2 ([#57](https://github.com/videojs/aes-decrypter/issues/57)) ([be8bd81](https://github.com/videojs/aes-decrypter/commit/be8bd81))
+* update generator version and use [@videojs](https://github.com/videojs)/vhs-utils ([#68](https://github.com/videojs/aes-decrypter/issues/68)) ([9a6ab2f](https://github.com/videojs/aes-decrypter/commit/9a6ab2f))
+* Update to generator v7 standards ([#37](https://github.com/videojs/aes-decrypter/issues/37)) ([fcf96c4](https://github.com/videojs/aes-decrypter/commit/fcf96c4))
+* Update videojs-generate-karma-config to the latest version 🚀 ([#42](https://github.com/videojs/aes-decrypter/issues/42)) ([2b16de3](https://github.com/videojs/aes-decrypter/commit/2b16de3))
+* Update videojs-generate-karma-config to the latest version 🚀 ([#43](https://github.com/videojs/aes-decrypter/issues/43)) ([cb63ccd](https://github.com/videojs/aes-decrypter/commit/cb63ccd))
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/videojs/aes-decrypter/compare/v2.0.0...v3.0.0) (2017-07-24)
 
