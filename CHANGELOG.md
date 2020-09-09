@@ -1,3 +1,10 @@
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/videojs/aes-decrypter/compare/v3.0.1...v3.0.2) (2020-09-09)
+
+### Chores
+
+* **package:** update pkcs7 to remove engine check ([062c952](https://github.com/videojs/aes-decrypter/commit/062c952))
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/videojs/aes-decrypter/compare/v3.0.0...v3.0.1) (2019-08-21)
 
