@@ -50,7 +50,7 @@
     "@babel/runtime": "^7.5.5",
     "@videojs/vhs-utils": "^1.0.0",
     "global": "^4.3.2",
-    "pkcs7": "^1.0.3"
+    "pkcs7": "^1.0.4"
   },
   "devDependencies": {
     "rollup": "^1.19.4",
