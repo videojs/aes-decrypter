@@ -48,7 +48,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "@videojs/vhs-utils": "^2.2.1",
+    "@videojs/vhs-utils": "^3.0.0",
     "global": "^4.3.2",
     "pkcs7": "^1.0.4"
   },
