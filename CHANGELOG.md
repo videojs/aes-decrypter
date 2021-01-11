@@ -1,3 +1,10 @@
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/videojs/aes-decrypter/compare/v3.1.0...v3.1.1) (2021-01-11)
+
+### Chores
+
+* update to use vhs-utils 3 ([#81](https://github.com/videojs/aes-decrypter/issues/81)) ([8ead5d9](https://github.com/videojs/aes-decrypter/commit/8ead5d9))
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/videojs/aes-decrypter/compare/v3.0.2...v3.1.0) (2020-11-03)
 
