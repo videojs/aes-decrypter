@@ -1,3 +1,10 @@
+<a name="3.1.2"></a>
+## [3.1.2](https://github.com/videojs/aes-decrypter/compare/v3.1.1...v3.1.2) (2021-01-12)
+
+### Bug Fixes
+
+* cjs dist should only import cjs ([#83](https://github.com/videojs/aes-decrypter/issues/83)) ([a8a5fbf](https://github.com/videojs/aes-decrypter/commit/a8a5fbf))
+
 <a name="3.1.1"></a>
 ## [3.1.1](https://github.com/videojs/aes-decrypter/compare/v3.1.0...v3.1.1) (2021-01-11)
 
