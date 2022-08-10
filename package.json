@@ -79,7 +79,7 @@
   "homepage": "https://github.com/videojs/aes-decrypter#readme",
   "browserslist": [
     "defaults",
-    "ie 11"
+    "not ie 11"
   ],
   "keywords": [
     "videojs",
