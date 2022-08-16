@@ -56,10 +56,10 @@
     "@rollup/plugin-replace": "^2.3.4",
     "@videojs/generator-helpers": "~2.0.1",
     "karma": "^5.2.3",
-    "rollup": "^2.36.1",
+    "rollup": "^2.38.0",
     "sinon": "^9.2.3",
     "videojs-generate-karma-config": "~7.0.0",
-    "videojs-generate-rollup-config": "~6.1.0",
+    "videojs-generate-rollup-config": "~7.0.0",
     "videojs-generator-verify": "~3.0.1",
     "videojs-standard": "^8.0.4"
   },
@@ -77,10 +77,6 @@
     "url": "https://github.com/videojs/aes-decrypter/issues"
   },
   "homepage": "https://github.com/videojs/aes-decrypter#readme",
-  "browserslist": [
-    "defaults",
-    "not ie 11"
-  ],
   "keywords": [
     "videojs",
     "videojs-plugin"
