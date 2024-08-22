@@ -1,6 +1,6 @@
 {
   "name": "aes-decrypter",
-  "version": "4.0.0",
+  "version": "4.0.2",
   "description": "decrypt aes-128 content using a key",
   "main": "dist/aes-decrypter.cjs.js",
   "module": "dist/aes-decrypter.es.js",
