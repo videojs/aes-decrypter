@@ -4,6 +4,9 @@
   "description": "decrypt aes-128 content using a key",
   "main": "dist/aes-decrypter.cjs.js",
   "module": "dist/aes-decrypter.es.js",
+  "engines": {
+    "node": "^22.13.0 || >=24"
+  },
   "contributors": [
     "gkatsev",
     "imbcmdth",
