@@ -1,3 +1,10 @@
+<a name="4.0.3"></a>
+## [4.0.3](https://github.com/videojs/aes-decrypter/compare/v4.0.2...v4.0.3) (2026-10-29)
+
+### Bug Fixes
+
+* update node, regenerate the lockfile and run the audit pass ([#91](https://github.com/videojs/aes-decrypter/issues/91)) ([4a50923](https://github.com/videojs/aes-decrypter/commit/4a50923))
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/videojs/aes-decrypter/compare/v4.0.0...v4.0.2) (2024-08-22)
 
